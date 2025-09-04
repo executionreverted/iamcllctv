@@ -7,7 +7,6 @@ type Props = {
 };
 
 export function EmailButton({ email }: Props) {
-  const [copied, setCopied] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -112,7 +111,7 @@ export function EmailButton({ email }: Props) {
         setAnimationRef(null);
       };
     }
-  }, [isHovered, email]);
+  }, [isHovered, email, displayText, animationRef]);
 
   const handleClick = async () => {
     if (isProcessing) return; // Prevent multiple clicks
@@ -121,12 +120,9 @@ export function EmailButton({ email }: Props) {
     
     try {
       await navigator.clipboard.writeText(email);
-      setCopied(true);
       
       // Dispatch custom event for toast
       window.dispatchEvent(new CustomEvent('email-copied'));
-      
-      setTimeout(() => setCopied(false), 2000);
       
       // 1 second delay then trigger mailto
       setTimeout(() => {
@@ -134,12 +130,8 @@ export function EmailButton({ email }: Props) {
         setIsProcessing(false);
       }, 1000);
     } catch {
-      setCopied(true);
-      
       // Dispatch custom event for toast
       window.dispatchEvent(new CustomEvent('email-copied'));
-      
-      setTimeout(() => setCopied(false), 2000);
       
       // 1 second delay then trigger mailto
       setTimeout(() => {

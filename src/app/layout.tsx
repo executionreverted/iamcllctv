@@ -10,21 +10,24 @@ export const metadata: Metadata = {
     template: "%s | IAMCLLCTV",
   },
   description:
-    "A minimal, futuristic 'Coming Soon' presence for IAMCLLCTV.",
+    "Creative collective transforming ideas into digital experiences. From concept to launch, we craft memorable brands and websites.",
   applicationName: "IAMCLLCTV",
   keywords: [
     "IAMCLLCTV",
-    "creative",
-    "coming soon",
-    "design",
-    "collective",
+    "creative collective",
+    "brand design",
+    "web development",
+    "digital agency",
+    "creative studio",
+    "branding",
+    "website design",
   ],
   openGraph: {
     type: "website",
     url: "/",
     title: "IAMCLLCTV",
     description:
-      "A minimal, futuristic 'Coming Soon' presence for IAMCLLCTV.",
+      "Creative collective transforming ideas into digital experiences. From concept to launch, we craft memorable brands and websites.",
     siteName: "IAMCLLCTV",
     images: [
       {
@@ -39,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "IAMCLLCTV",
     description:
-      "A minimal, futuristic 'Coming Soon' presence for IAMCLLCTV.",
+      "Creative collective transforming ideas into digital experiences. From concept to launch, we craft memorable brands and websites.",
     images: ["/og.png"],
   },
   robots: {

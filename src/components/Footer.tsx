@@ -5,7 +5,7 @@ import socials from "../socials.json";
 
 type SocialKey = "instagram" | "twitter" | "github" | "linkedin";
 
-const ICONS: Record<SocialKey, JSX.Element> = {
+const ICONS: Record<SocialKey, React.ReactElement> = {
   instagram: <FaInstagram aria-label="Instagram" />,
   twitter: <FaTwitter aria-label="Twitter" />,
   github: <FaGithub aria-label="GitHub" />,
