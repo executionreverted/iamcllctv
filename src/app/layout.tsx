@@ -6,25 +6,25 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://iamcllctv.com"),
   title: {
-    default: "IAMCLLCTV (i am collective)",
+    default: "IAMCLLCTV",
     template: "%s | IAMCLLCTV",
   },
   description:
-    "A minimal, futuristic ‘Coming Soon’ presence for IAMCLLCTV (i am collective).",
+    "A minimal, futuristic 'Coming Soon' presence for IAMCLLCTV.",
   applicationName: "IAMCLLCTV",
   keywords: [
     "IAMCLLCTV",
-    "i am collective",
     "creative",
     "coming soon",
     "design",
+    "collective",
   ],
   openGraph: {
     type: "website",
     url: "/",
-    title: "IAMCLLCTV (i am collective)",
+    title: "IAMCLLCTV",
     description:
-      "A minimal, futuristic ‘Coming Soon’ presence for IAMCLLCTV (i am collective).",
+      "A minimal, futuristic 'Coming Soon' presence for IAMCLLCTV.",
     siteName: "IAMCLLCTV",
     images: [
       {
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "IAMCLLCTV (i am collective)",
+    title: "IAMCLLCTV",
     description:
-      "A minimal, futuristic ‘Coming Soon’ presence for IAMCLLCTV (i am collective).",
+      "A minimal, futuristic 'Coming Soon' presence for IAMCLLCTV.",
     images: ["/og.png"],
   },
   robots: {
@@ -47,8 +47,23 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/safari-pinned-tab.svg",
+        color: "#000000",
+      },
+    ],
   },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
