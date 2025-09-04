@@ -1,5 +1,118 @@
 @import "tailwindcss";
 
+/* NonBureau Font Family */
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-Thin-BF67107aef34cb1.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-ThinItalic-BF67107aef35c41.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-Light-BF67107aef512ca.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-LightItalic-BF67107aef511f1.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-Regular-BF67107aef52442.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-RegularItalic-BF67107aef36043.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-Medium-BF67107aef54347.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-MediumItalic-BF67107aef545e3.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-SemiBold-BF67107aef345d9.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-SemiBoldItalic-BF67107aef361f3.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-Bold-BF67107aef55bf1.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-BoldItalic-BF67107aef5141a.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-Black-BF67107aef55271.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NonBureau';
+  src: url('/fonts/NonBureau-BlackItalic-BF67107aef51623.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -8,8 +121,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: 'NonBureau';
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +135,141 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Background gradient and blobs inspired by provided palette */
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 120% at 0% 0%, #e9f0ff 0%, #f6e9ff 35%, #fff 70%),
+    linear-gradient(180deg, #0b0b0b 0%, #0b0b0b 100%);
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  filter: blur(40px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+/* Soft neon-ish hues from the reference image */
+.blob-a {
+  left: 20%;
+  top: 30%;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle at 30% 30%, #ff6b8b 0%, #b96bff 40%, transparent 70%);
+  animation: floatA 16s ease-in-out infinite;
+}
+
+.blob-b {
+  left: 70%;
+  top: 35%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle at 60% 40%, #7cc7ff 0%, #7e7bff 40%, transparent 70%);
+  animation: floatB 18s ease-in-out infinite;
+}
+
+.blob-c {
+  left: 50%;
+  top: 70%;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle at 40% 60%, #ff9fb3 0%, #b8a1ff 35%, transparent 70%);
+  animation: floatC 20s ease-in-out infinite;
+}
+
+@keyframes floatA {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-48%, -52%) scale(1.08); }
+}
+
+@keyframes floatB {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-52%, -48%) scale(1.05); }
+}
+
+@keyframes floatC {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-49%, -49%) scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob-a, .blob-b, .blob-c {
+    animation: none;
+  }
+}
+
+/* Foil effect styles */
+.foil-btn {
+  color: #0b0b0b;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(10px) saturate(140%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.foil-btn:hover { box-shadow: 0 12px 36px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.7); }
+
+.foil-sheen {
+  position: absolute;
+  inset: -200%;
+  background: conic-gradient(from 180deg at 50% 50%,
+    rgba(255,255,255,0.7) 0deg,
+    rgba(255,0,153,0.25) 60deg,
+    rgba(0,204,255,0.25) 120deg,
+    rgba(153,102,255,0.25) 180deg,
+    rgba(255,255,255,0.7) 240deg,
+    rgba(0,0,0,0) 300deg,
+    rgba(255,255,255,0.7) 360deg);
+  mix-blend-mode: screen;
+  transform: rotate(0deg);
+  animation: foilSweep 6s linear infinite;
+}
+
+@keyframes foilSweep {
+  0% { transform: rotate(0deg) translateY(0); }
+  100% { transform: rotate(360deg) translateY(0); }
+}
+
+/* Improve text contrast on hero */
+/* removed hero glass wrap */
+
+/* Stage-level blob positioned under hero container */
+.stage-blob {
+  position: absolute;
+  left: -80px;
+  bottom: -80px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff6b8b 0%, #b96bff 40%, transparent 70%),
+    radial-gradient(circle at 70% 60%, #7cc7ff 0%, #7e7bff 40%, transparent 75%);
+  filter: blur(26px) saturate(130%);
+  opacity: 0.9;
+  transform: translateZ(0);
+  animation: heroFloat 16s ease-in-out infinite;
+}
+
+/* Footer contrast */
+.footer-wrap {
+  color: #0b0b0b;
+}
+.footer-wrap a { opacity: 0.8; }
+.footer-wrap a:hover { opacity: 1; }
+
+@keyframes heroFloat {
+  0%, 100% { transform: translate(-2%, 0) scale(1); }
+  50% { transform: translate(2%, -2%) scale(1.06); }
 }
