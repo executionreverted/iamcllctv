@@ -11,46 +11,141 @@ export function EmailButton({ email }: Props) {
   const [isHovered, setIsHovered] = useState(false);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [initialText, setInitialText] = useState("");
+  const [isInitialTyping, setIsInitialTyping] = useState(false);
+  const [animationRef, setAnimationRef] = useState<NodeJS.Timeout | null>(null);
 
+  // Initial typing effect for "Contact Us"
   useEffect(() => {
-    if (isHovered) {
-      setIsTyping(true);
-      setDisplayText("");
+    const timer = setTimeout(() => {
+      setIsInitialTyping(true);
+      const fullText = "Contact Us";
       let currentIndex = 0;
+      
       const typeInterval = setInterval(() => {
-        if (currentIndex < email.length) {
-          setDisplayText(email.slice(0, currentIndex + 1));
+        if (currentIndex < fullText.length) {
+          setInitialText(fullText.slice(0, currentIndex + 1));
           currentIndex++;
         } else {
-          setIsTyping(false);
           clearInterval(typeInterval);
+          setIsInitialTyping(false);
         }
-      }, 50);
+      }, 100);
+      
       return () => clearInterval(typeInterval);
-    } else {
+    }, 500); // Start after 0.5 seconds
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Clear any existing animation
+    if (animationRef) {
+      clearInterval(animationRef);
+      setAnimationRef(null);
+    }
+
+    if (isHovered) {
+      // First delete current text character by character
       setIsTyping(true);
       let currentIndex = displayText.length;
       const deleteInterval = setInterval(() => {
         if (currentIndex > 0) {
-          setDisplayText(displayText.slice(0, currentIndex - 1));
+          setDisplayText(prev => prev.slice(0, -1));
           currentIndex--;
         } else {
-          setIsTyping(false);
           clearInterval(deleteInterval);
+          setAnimationRef(null);
+          // After deleting, type the email
+          let typeIndex = 0;
+          const typeInterval = setInterval(() => {
+            if (typeIndex < email.length) {
+              setDisplayText(email.slice(0, typeIndex + 1));
+              typeIndex++;
+            } else {
+              setIsTyping(false);
+              clearInterval(typeInterval);
+              setAnimationRef(null);
+            }
+          }, 50);
+          setAnimationRef(typeInterval);
         }
       }, 30);
-      return () => clearInterval(deleteInterval);
+      setAnimationRef(deleteInterval);
+      return () => {
+        clearInterval(deleteInterval);
+        setAnimationRef(null);
+      };
+    } else if (displayText) {
+      // First delete the email character by character
+      setIsTyping(true);
+      let currentIndex = displayText.length;
+      const deleteInterval = setInterval(() => {
+        if (currentIndex > 0) {
+          setDisplayText(prev => prev.slice(0, -1));
+          currentIndex--;
+        } else {
+          clearInterval(deleteInterval);
+          setAnimationRef(null);
+          // After deleting, type "Contact Us"
+          const fullText = "Contact Us";
+          let typeIndex = 0;
+          
+          const typeInterval = setInterval(() => {
+            if (typeIndex < fullText.length) {
+              setDisplayText(fullText.slice(0, typeIndex + 1));
+              typeIndex++;
+            } else {
+              setIsTyping(false);
+              clearInterval(typeInterval);
+              setAnimationRef(null);
+            }
+          }, 100);
+          setAnimationRef(typeInterval);
+        }
+      }, 30);
+      setAnimationRef(deleteInterval);
+      
+      return () => {
+        clearInterval(deleteInterval);
+        setAnimationRef(null);
+      };
     }
   }, [isHovered, email]);
 
   const handleClick = async () => {
+    if (isProcessing) return; // Prevent multiple clicks
+    
+    setIsProcessing(true);
+    
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-      window.open(`mailto:${email}`);
+      
+      // Dispatch custom event for toast
+      window.dispatchEvent(new CustomEvent('email-copied'));
+      
+      setTimeout(() => setCopied(false), 2000);
+      
+      // 1 second delay then trigger mailto
+      setTimeout(() => {
+        window.location.href = `mailto:${email}`;
+        setIsProcessing(false);
+      }, 1000);
     } catch {
-      window.location.href = `mailto:${email}`;
+      setCopied(true);
+      
+      // Dispatch custom event for toast
+      window.dispatchEvent(new CustomEvent('email-copied'));
+      
+      setTimeout(() => setCopied(false), 2000);
+      
+      // 1 second delay then trigger mailto
+      setTimeout(() => {
+        window.location.href = `mailto:${email}`;
+        setIsProcessing(false);
+      }, 1000);
     }
   };
 
@@ -59,9 +154,13 @@ export function EmailButton({ email }: Props) {
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="foil-btn relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white/30 hover:border-white/60 transition-all min-w-[140px] cursor-pointer"
+      disabled={isProcessing}
+      className={`foil-btn relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white/30 hover:border-white/60 transition-all min-w-[140px] ${
+        isProcessing ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+      }`}
       aria-label="Email"
     >
+      
       <span className="relative z-10">
         {(isHovered || isTyping) ? (
           <>
@@ -70,16 +169,22 @@ export function EmailButton({ email }: Props) {
           </>
         ) : (
           <>
-            <span className="italic font-normal">Contact</span><span className="font-normal" style={{marginLeft: "1px"}}>Us</span>
+            {isInitialTyping ? (
+              <>
+                {initialText}
+                <span className="animate-pulse">|</span>
+              </>
+            ) : initialText ? (
+              <>
+                <span className="italic font-normal">Contact</span><span className="font-normal" style={{marginLeft: "1px"}}>Us</span>
+              </>
+            ) : (
+              <span className="animate-pulse">|</span>
+            )}
           </>
         )}
       </span>
       <span aria-hidden className="foil-sheen" />
-      {copied && (
-        <span className="absolute -top-7 text-xs bg-black/70 text-white px-2 py-1 rounded">
-          Copied
-        </span>
-      )}
     </button>
   );
 }

@@ -21,7 +21,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative z-10 mt-24 w-full max-w-5xl px-6 pb-10 mx-auto footer-wrap">
+    <footer className="relative z-5 mt-24 w-full max-w-5xl px-6 mx-auto footer-wrap">
       <div className="flex flex-col items-center justify-center gap-4 text-center">
         <p className="text-sm">© {year} IAMCLLCTV. All rights reserved.</p>
         <nav className="flex items-center justify-center gap-4 text-xl">
