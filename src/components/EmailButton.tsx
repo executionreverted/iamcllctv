@@ -111,7 +111,7 @@ export function EmailButton({ email }: Props) {
         setAnimationRef(null);
       };
     }
-  }, [isHovered, email, displayText, animationRef]);
+  }, [isHovered, email]);
 
   const handleClick = async () => {
     if (isProcessing) return; // Prevent multiple clicks

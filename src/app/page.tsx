@@ -2,6 +2,7 @@ import { Footer } from "../components/Footer";
 import { EmailButton } from "../components/EmailButton";
 import { ScrollbarController } from "../components/ScrollbarController";
 import { ToastManager } from "../components/ToastManager";
+import Image from "next/image";
 import config from "../config.json";
 
 export default function Home() {
@@ -36,20 +37,27 @@ export default function Home() {
       
       {/* Fixed positioned logo with rotating objects */}
       <div className="logo-container reveal-up reveal-delay-4">
-        <img 
+        <Image 
           src="/logo.png" 
-          alt="Logo" 
+          alt="IAMCLLCTV Logo" 
+          width={512}
+          height={512}
+          priority
           className="logo-image"
         />
         <div className="logo-objects">
-          <img 
+          <Image 
             src="/object1.png" 
-            alt="Rotating object 1" 
+            alt="Rotating decorative element" 
+            width={100}
+            height={100}
             className="logo-object logo-object-left reveal-down reveal-delay-5"
           />
-          <img 
+          <Image 
             src="/object2.png" 
-            alt="Rotating object 2" 
+            alt="Rotating decorative element" 
+            width={100}
+            height={100}
             className="logo-object logo-object-right reveal-down reveal-delay-5"
           />
         </div>
