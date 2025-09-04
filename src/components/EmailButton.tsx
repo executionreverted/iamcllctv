@@ -9,7 +9,7 @@ type Props = {
 export function EmailButton({ email }: Props) {
   const [copied, setCopied] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [displayText, setDisplayText] = useState("Contact us");
+  const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
@@ -35,7 +35,6 @@ export function EmailButton({ email }: Props) {
           setDisplayText(displayText.slice(0, currentIndex - 1));
           currentIndex--;
         } else {
-          setDisplayText("Contact us");
           setIsTyping(false);
           clearInterval(deleteInterval);
         }
@@ -64,8 +63,16 @@ export function EmailButton({ email }: Props) {
       aria-label="Email"
     >
       <span className="relative z-10">
-        {displayText}
-        {isTyping && <span className="animate-pulse">|</span>}
+        {(isHovered || isTyping) ? (
+          <>
+            {displayText}
+            {isTyping && <span className="animate-pulse">|</span>}
+          </>
+        ) : (
+          <>
+            <span className="italic font-normal">Contact</span><span className="font-normal" style={{marginLeft: "1px"}}>Us</span>
+          </>
+        )}
       </span>
       <span aria-hidden className="foil-sheen" />
       {copied && (
