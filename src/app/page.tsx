@@ -7,11 +7,11 @@ export default function Home() {
       <div className="relative flex-1 flex items-center justify-center px-6 py-20">
         <span aria-hidden className="stage-blob" />
         <main className="relative z-10 flex flex-col items-center gap-4">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-wide text-black">
-            IAMCLLCTV
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-wide text-black relative z-10">
+            iam — collective
           </h1>
-          <p className="text-base sm:text-lg opacity-80 text-black">i am collective</p>
-          <p className="mt-6 opacity-80 text-black">Something amazing is on its way.</p>
+          <p className="mt-6 opacity-80 text-black">From nothing to everything.</p>
+          <p className="opacity-80 text-black">Idea → Strategy → Identity → Design → Website</p>
           <div className="mt-8">
             <EmailButton email="hello@example.com" />
           </div>
